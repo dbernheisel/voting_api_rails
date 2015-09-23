@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class VotesControllerTest < ActionController::TestCase
-  test "should get create" do
+  test "should post create" do
     get :create
     assert_response :success
   end
 
-  test "should get destroy" do
-    get :destroy
+  test "should delete destroy" do
+    delete :destroy, id:votes(:test_one).id
     assert_response :success
   end
 

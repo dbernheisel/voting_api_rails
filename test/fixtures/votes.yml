@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  voter_id: 
-  candidate_id: 1
+test_one:
+  voter: test_one
+  candidate: test1
 
-two:
-  voter_id: 
-  candidate_id: 1
+test_two:
+  voter: test_two
+  candidate: test2

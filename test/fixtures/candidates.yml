@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  hometown: MyString
-  district: MyString
+test1:
+  name: Trump
+  hometown: Hell
+  district: 9th
+  party: Republican
 
-two:
-  name: MyString
-  hometown: MyString
-  district: MyString
+test2:
+  name: Hillary
+  hometown: Underground
+  district: 8th
+  party: Democrat

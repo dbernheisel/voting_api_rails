@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  party: MyString
+test_one:
+  name: Tester
+  party: None
 
-two:
-  name: MyString
-  party: MyString
+test_two:
+  name: Tester2
+  party: Trumper

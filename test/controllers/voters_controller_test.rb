@@ -1,19 +1,38 @@
 require 'test_helper'
 
 class VotersControllerTest < ActionController::TestCase
-  test "should get show" do
-    get :show
-    assert_response :success
+
+  setup do
+    @request.headers['Accept'] = Mime::JSON
+    @request.headers['Content-Type'] = Mime::JSON.to_s
   end
 
-  test "should get create" do
-    get :create
+  test "should GET show" do
+    get :show, id:voters(:test_one).id, format: "json"
     assert_response :success
+    body = JSON.parse(response.body)
+    assert_equal "Tester", body["name"]
+    refute_equal "Tester2", body["name"]
   end
 
-  test "should get update" do
-    get :update
+  test "should POST create" do
+    post :create, {name: "Tester3", party: "Hilary"}, format: "json"
     assert_response :success
+    body = JSON.parse(response.body)
+    assert_equal "Tester3", body["name"]
+  end
+
+  test "should PUT update" do
+    get :show, id:voters(:test_one).id, format: "json"
+    body_get = JSON.parse(response.body)
+    assert_equal "Tester", body_get["name"]
+    assert_equal "None", body_get["party"]
+
+    put :update, {id: voters(:test_one).id, name: "Tester1", party: "Trumper"}, format: "json"
+    assert_response :success
+    body_put = JSON.parse(response.body)
+    assert_equal "Tester1", body_put["name"]
+    assert_equal "Trumper", body_put["party"]
   end
 
 end
