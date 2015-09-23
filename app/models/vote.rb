@@ -1,4 +1,6 @@
 class Vote < ActiveRecord::Base
-  has_many :candidates
-  has_many :voters
+  belongs_to :candidate
+  belongs_to :voter
+
+  validates :voter, uniqueness: true
 end
