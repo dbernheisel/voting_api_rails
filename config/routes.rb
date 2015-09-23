@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   post    'votes/create'
   delete  'votes/destroy/:id' => 'votes#destroy'
   get     'votes/index'

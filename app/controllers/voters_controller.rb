@@ -1,10 +1,22 @@
 class VotersController < ApplicationController
+
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: Voter.find(params[:id]).to_json, status: 200 }
-      format.yaml { render text: Voter.find(params[:id]).to_yaml, content_type: 'text/yaml', status: 200 }
-      format.xml  { render xml: Voter.find(params[:id]).to_xml, status: 200 }
+    voter = Voter.find(params[:id])
+    token = params[:token]
+    unless token == voter.token
+      render json: {Error: "Bad Token"}.to_json
+      return
+    end
+
+    begin
+      respond_to do |format|
+        format.html
+        format.json { render json: voter.to_json, status: 200 }
+        format.yaml { render text: voter.to_yaml, content_type: 'text/yaml', status: 200 }
+        format.xml  { render xml: voter.to_xml, status: 200 }
+      end
+    rescue
+      render json: voter.errors
     end
   end
 
@@ -18,8 +30,7 @@ class VotersController < ApplicationController
   end
 
   def create
-    token = "placeholder"
-    voter = Voter.new(name: params[:name], party: params[:party], auth_token: token )
+    voter = Voter.new(name: params[:name], party: params[:party] )
     if voter.save
       respond_to do |format|
         format.html
@@ -33,11 +44,16 @@ class VotersController < ApplicationController
   end
 
   def update
-    id = params[:id]
+    voter = Voter.find(params[:id])
+    token = params[:token]
+    unless token == voter.token
+      render json: {Error: "Bad Token"}.to_json
+      return
+    end
+
     n = params[:name]
     p = params[:party]
 
-    voter = Voter.find(id)
     voter.update(name: n) if n
     voter.update(party: p) if p
 

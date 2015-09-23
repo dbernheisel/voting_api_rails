@@ -1,4 +1,5 @@
 class Voter < ActiveRecord::Base
+  include Tokenable
   has_one :vote
   has_one :candidate, through: :vote
 
