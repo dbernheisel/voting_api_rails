@@ -12,7 +12,7 @@ class VotersController < ApplicationController
         format.xml  { render xml: voter.to_xml, status: 200 }
       end
     rescue
-      # render json: voter.errors
+        render json: voter.errors
     end
   end
 
@@ -46,14 +46,22 @@ class VotersController < ApplicationController
     n = params[:name]
     p = params[:party]
 
-    voter.update(name: n) if n
-    voter.update(party: p) if p
-
-    respond_to do |format|
-      format.html
-      format.json { render json: voter.to_json, status: 200 }
-      format.yaml { render text: voter.to_yaml, content_type: 'text/yaml', status: 200 }
-      format.xml  { render xml: voter.to_xml, status: 200 }
+    voter.name = params[:name] if params[:name]
+    voter.party = params[:party] if params[:party]
+    if voter.save
+      respond_to do |format|
+        format.html
+        format.json { render json: voter.to_json, status: 200 }
+        format.yaml { render text: voter.to_yaml, content_type: 'text/yaml', status: 200 }
+        format.xml  { render xml: voter.to_xml, status: 200 }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render json: voter.errors.to_json, status: 400 }
+        format.yaml { render text: voter.errors.to_yaml, content_type: 'text/yaml', status: 400 }
+        format.xml  { render xml: voter.errors.to_xml, status: 400 }
+      end
     end
   end
 
