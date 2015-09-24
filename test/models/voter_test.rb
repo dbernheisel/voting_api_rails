@@ -5,7 +5,7 @@ class VoterTest < ActiveSupport::TestCase
     v1 = Voter.create!(name: "Test", party: "Independent")
     c1 = Candidate.create!(name: "Trump", hometown: "Hell", district: "9th")
     c2 = Candidate.create!(name: "Trump2", hometown: "Hell", district: "9th")
-    v1.vote_for_candidate(c1)
+    assert v1.vote_for_candidate(c1)
     assert_equal 1, c1.votes.length
     refute v1.vote_for_candidate(c2)
   end

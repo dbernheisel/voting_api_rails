@@ -33,8 +33,10 @@ class VotesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    vcount = Vote.count
     get :index
     assert_response :success
+    assert_equal vcount, JSON.parse(response.body).length
   end
 
 end
