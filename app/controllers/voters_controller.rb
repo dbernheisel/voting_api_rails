@@ -2,11 +2,7 @@ class VotersController < ApplicationController
 
   def show
     voter = Voter.find(params[:id])
-    token = params[:token]
-    unless token == voter.token
-      render json: {Error: "Bad Token"}.to_json
-      return
-    end
+    authenticate(voter.token)
 
     begin
       respond_to do |format|
@@ -16,7 +12,7 @@ class VotersController < ApplicationController
         format.xml  { render xml: voter.to_xml, status: 200 }
       end
     rescue
-      render json: voter.errors
+      # render json: voter.errors
     end
   end
 
@@ -45,11 +41,7 @@ class VotersController < ApplicationController
 
   def update
     voter = Voter.find(params[:id])
-    token = params[:token]
-    unless token == voter.token
-      render json: {Error: "Bad Token"}.to_json
-      return
-    end
+    authenticate(voter.token)
 
     n = params[:name]
     p = params[:party]

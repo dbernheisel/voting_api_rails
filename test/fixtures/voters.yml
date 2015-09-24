@@ -3,7 +3,9 @@
 test_one:
   name: Tester
   party: None
+  token: 1234
 
 test_two:
   name: Tester2
   party: Trumper
+  token: 2345
