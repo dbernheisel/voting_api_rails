@@ -11,7 +11,7 @@ class VotersControllerTest < ActionController::TestCase
     get :show, id:voters(:test_one).id, format: "json"
     assert_equal 401, response.status
 
-    request.headers["HTTP_AUTHORIZATION"] = %{Token #{voters(:test_one).token}}
+    request.headers["HTTP_AUTHORIZATION"] = "Token #{voters(:test_one).token}"
     get :show, id: voters(:test_one).id, format: "json"
     assert_response :success
 
@@ -27,7 +27,7 @@ class VotersControllerTest < ActionController::TestCase
   end
 
   test "should PUT update" do
-    request.headers["HTTP_AUTHORIZATION"] = %{Token #{voters(:test_one).token}}
+    request.headers["HTTP_AUTHORIZATION"] = "Token #{voters(:test_one).token}"
     get :show, id:voters(:test_one).id, format: "json"
     body_get = JSON.parse(response.body)
     assert_equal "Tester", body_get["name"]

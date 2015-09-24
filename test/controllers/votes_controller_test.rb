@@ -3,6 +3,7 @@ require 'test_helper'
 class VotesControllerTest < ActionController::TestCase
   test "should post create" do
     voter = Voter.create(name: "VotingTest", party: "YoMama")
+    byebug
     request.headers["HTTP_AUTHORIZATION"] = %{Token #{voter.token}}
     post :create, params: { voter_id: "#{voter.id}", candidate_id: "#{candidates(:test2).id}" }
     assert_response :success
