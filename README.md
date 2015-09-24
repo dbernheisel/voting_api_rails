@@ -8,7 +8,7 @@ This is a Voter API application that tracks voters, candidates, and votes that v
 ## Usage
 Eventually, just clone the repository and run the rails server and look at the site!
 
-`rake db:migrate`
+`rake db:setup`
 `rails server`
 then probably go to http://localhost:3000
 
