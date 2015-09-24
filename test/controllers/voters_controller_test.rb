@@ -33,7 +33,6 @@ class VotersControllerTest < ActionController::TestCase
     assert_equal "Tester", body_get["name"]
     assert_equal "None", body_get["party"]
 
-
     put :update, {id: voters(:test_one).id, name: "Tester1", party: "Trumper"}, format: "json"
     assert_response :success
     body_put = JSON.parse(response.body)
@@ -41,7 +40,4 @@ class VotersControllerTest < ActionController::TestCase
     assert_equal "Trumper", body_put["party"]
   end
 
-  def current_resource_owner
-    Voter.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-  end
 end

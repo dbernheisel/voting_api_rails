@@ -4,7 +4,7 @@ class VotesController < ApplicationController
     voter = Voter.find(params[:voter_id])
     authenticate(voter.token)
 
-    e = Vote.new(voter_id: params[:voter_id], candidate: params[:candidate_id])
+    e = Vote.new(voter_id: params[:voter_id], candidate_id: params[:candidate_id])
     if e.save
       render json: e.to_json, status: 201
     else
@@ -13,14 +13,15 @@ class VotesController < ApplicationController
   end
 
   def destroy
-    voter = Voter.find(params[:voter_id])
+    vote = Vote.find(params[:id])
+    voter = Voter.find(vote.voter_id)
     authenticate(voter.token)
 
-    voter.destroy
-    if voter.destroy
+    vote.destroy
+    if vote.destroy
       render json: {Success: true}, status: 200
     else
-      render json: voter.errors, status: 400
+      render json: vote.errors, status: 400
     end
   end
 
